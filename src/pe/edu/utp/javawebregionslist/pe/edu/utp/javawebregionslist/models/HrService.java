@@ -35,10 +35,21 @@ public class HrService {
     public Region findRegionById(int id){
         return getRegionsEntity()!=null?getRegionsEntity().findById(id):null;
     }
+
+
     public Region createRegion(String name){
         return  getRegionsEntity()!=null?
                 getRegionsEntity().create(name):null;
 
+    }
+
+    public boolean deleteRegion(int id){
+        return getRegionsEntity()!=null?getRegionsEntity().delete(id):false;
+    }
+
+    public boolean updateRegion(Region region){
+        return getRegionsEntity()!=null?
+                getRegionsEntity().update(region):false;
     }
 
 }
