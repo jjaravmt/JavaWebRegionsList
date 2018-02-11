@@ -6,6 +6,7 @@ import java.util.List;
 public class HrService {
     private Connection connection;
     private RegionsEntity regionsEntity;
+    private CountriesEntity countriesEntity;
 
     public Connection getConnection() {
         return connection;
@@ -24,6 +25,22 @@ public class HrService {
             }
         }
         return regionsEntity;
+    }
+
+    public CountriesEntity getCountriesEntity(){
+        if (getConnection()!=null){
+            if (countriesEntity==null){
+                countriesEntity=new CountriesEntity();
+                countriesEntity.setConnection(getConnection());
+            }
+        }
+        return countriesEntity;
+    }
+
+    public List<Country> findAllContries(){
+        return (getCountriesEntity()!=null &&
+                getRegionsEntity()!=null)?
+                getCountriesEntity().findAll(getRegionsEntity()):null;
     }
 
     //Patron fachada - llama al singleton

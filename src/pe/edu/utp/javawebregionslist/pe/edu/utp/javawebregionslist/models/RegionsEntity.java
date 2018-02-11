@@ -7,6 +7,7 @@ import java.util.List;
 
 public class RegionsEntity extends BaseEntity {
     private static String DEFAULT_SQL="SELECT * FROM hr.regions";
+    private String sql;
 
     private List<Region> findByCriteria(String sql) {
         List<Region> regions;
@@ -104,6 +105,14 @@ public class RegionsEntity extends BaseEntity {
     public boolean update(Region region){
         return updatebyCriteria("UPDATE regions SET region_name='"+
                 region.getName()+"' WHERE region_id="+String.valueOf(region.getId()))>0;
+    }
+
+    public List<Region> findAllWithCountries(CountriesEntity countriesEntity){
+        List<Region> regions = findAll();
+        for (Region region:regions) region.setCountries(
+                countriesEntity.findForRegion(region,this));
+
+        return null;
     }
 
 }
